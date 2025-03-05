@@ -1,1 +1,64 @@
-,,,,
+README.md
+
+Discord Bot - Automatic Message Handler
+Description
+This Discord bot script is designed to send an image to a specific channel when a message is sent in a particular channel on a specified server. The bot listens for messages and checks if the conditions are met before responding.
+
+Features
+Channel and Guild Check: Ensures the bot only responds to messages from a specific server (guild) and channel.
+User Check: Prevents the bot from responding to its own messages.
+Image Sending: Sends a predefined image in the channel if a valid message is detected.
+Script Explanation
+Code Breakdown
+js
+
+
+// Automatic Message Handler
+client.on("message", async message => {
+  
+  // Checks if the message is from the specified server (guild)
+  if (message.guild.id != "1248922940112769067") return; 
+
+  // Checks if the message is from the specified channel
+  if (message.channel.id != "1338942721129316372") return; 
+
+  // Prevents the bot from responding to its own messages
+  if(message.author.id === client.user.id) return;
+
+  // If the message author can send DMs, send an image to the channel
+  if (message.author.send) {
+    message.channel.send({files: ["رابط الصورة"]});  // Replace "رابط الصورة" with the image URL
+  }  
+
+});
+
+// Bot login using the bot's token
+client.login("");  // Insert the bot's token here
+Key Components
+Event Listener (client.on("message")): The bot listens for every message sent in any channel it has access to.
+Guild and Channel Check:
+The script checks if the message is coming from a specific guild (server) and channel using message.guild.id and message.channel.id.
+If the message is not from the specified server or channel, it exits without further action.
+Message Author Check: The bot ensures it doesn't respond to its own messages by checking message.author.id.
+Sending an Image: If the message passes all checks, the bot sends an image to the channel using the message.channel.send method. The image URL should replace "رابط الصورة".
+Setup Instructions
+Install Dependencies: Ensure you have Node.js installed on your system. If not, download and install it from nodejs.org.
+
+Install the necessary dependencies using:
+
+
+npm install discord.js
+Configure the Bot:
+
+Replace 1248922940112769067 with the ID of your target server (guild).
+Replace 1338942721129316372 with the ID of your target channel.
+Replace "رابط الصورة" with the URL of the image you want to send.
+Insert your bot's token where it says client.login("").
+Run the Script: Save the file as bot.js, and run it using:
+
+
+node bot.js
+
+Notes
+Ensure the bot has the required permissions in the server and channel to read messages and send images.
+Always keep your bot's token private. Never share it with others.
